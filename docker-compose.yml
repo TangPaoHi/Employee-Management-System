@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    platform: linux/amd64
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password123!
+    ports:
+      - "1433:1433"
+
+  web:
+    build: .
+    container_name: python_app
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_SERVER=sqlserver
+      - DB_PWD=Password123!
+    depends_on:
+      - sqlserver
