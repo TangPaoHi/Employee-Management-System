@@ -78,8 +78,8 @@ INDEX_TEMPLATE = BASE_STYLE + '''
         <h3>➕Add New Employee</h3>
         <form method="POST" action="/add">
             <div class="form-row">
-                <input type="text" name="name" placeholder="Name *" required>
-                <input type="text" name="dept" placeholder="Department*" required>
+                <input type="text" name="name" placeholder="Name*" >
+                <input type="text" name="dept" placeholder="Department*">
             </div>
             <div class="form-row">
                 <input type="text" name="email" placeholder="Email">
@@ -191,7 +191,7 @@ def add_employee():
     phone = request.form.get('phone')
     salary = request.form.get('salary')
     
-    if not name:
+    if not name.strip():
         return show_alert(message="Name Cannot Be Empty!",icon="error"),400
 
     if any(x.isdigit() for x in name):
